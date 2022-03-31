@@ -1,0 +1,15 @@
+.containerTP{
+    padding: 20px;
+}
+.red{
+    border:2px black solid;
+}
+.contTablice{
+    padding: 20px;
+    background-color: rgb(34, 98, 158);
+    color: white;
+}
+th{
+    padding: 10px 40px;
+    border:solid 1px;
+}

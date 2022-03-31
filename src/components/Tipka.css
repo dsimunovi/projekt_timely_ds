@@ -1,0 +1,16 @@
+.btn{
+    background-color:rgb(57, 81, 187);
+    padding: 20px;
+    
+    border: 2px;
+    border-color: black;
+    border-style: groove;
+    border-radius: 15px;
+    color: rgb(255, 255, 255);
+}
+.btn:hover{
+    background-color:rgb(205, 206, 219);
+}
+.containerTipka{
+    padding: 20px;
+}
