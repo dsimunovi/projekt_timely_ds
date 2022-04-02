@@ -12,13 +12,13 @@ const TablicaProjekata = ({podatci}) => {
                     <th>Start</th>
                     <th>Stop</th>
                     <th>Trajanje</th>
+                    <th>Opcije</th>
                     </tr>              
                 </thead>
-                <tbody id="tu">
+                <tbody >
                     {podatci.map(el => <Podatak podatak={el}/>)}
                 </tbody>
             </table>
-        </div>    )
-    }
-
+        </div>
+)}
 export default TablicaProjekata

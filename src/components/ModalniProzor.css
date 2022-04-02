@@ -1,0 +1,32 @@
+.inputNaziv{
+  padding:20px 10px;
+}
+.mymodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+.myoverlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.naslovModal{
+  padding: 20px;
+}
+.inputModal{
+  padding: 20px;
+}
+.containerModal{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

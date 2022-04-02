@@ -1,96 +1,74 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './App.css';
 import Tipka from './components/Tipka'
-// import TimeTracker from 'react-time-tracker-stopwatch';
-import Stopwatch from './components/Stopwatch'
 import TablicaProjekata from './components/TablicaProjekata';
-import Modal from "react-modal";
+import Stoperica from './components/Stoperica';
+import ModalniProzor from './components/ModalniProzor';
+import Opcije from './components/Opcije';
 
 function App() {
-  const [ formaTimer, postaviFormuTimer] = useState(false)
-  const [ tipkaStartStop, postaviTipkuStartStop] = useState(true)
-  const [formaModal, postaviFormuModal] = useState(false) 
-  const [isOpen, setIsOpen] = useState(false)
+  const [ tipkaStartStop, postaviTipkuStartStop] = useState(false)
+  const [ modal, postaviModal] = useState(false)
   const [ projekti, postaviProjekte] = useState([])
-  let vrijemeStart;
-  let vrijemeStop;
+  const [ modStoperica, postaviModStoperica] = useState(0)
+  const [ vrijemeStart, postaviVrijemeStart] = useState('')
+  const [ vrijemeStop, postaviVrijemeStop] = useState('')
+  const [ interval, postaviInterval] = useState(0);
+  
 
-  function toggleModal() {
-    let datum = new Date();
-    vrijemeStop = `${datum.getDate()}.${datum.getMonth()}.${datum.getFullYear()}.  ${datum.getHours}.${datum.getMinutes}.${datum.getSeconds}` 
-    if(isOpen){
-      const noviObjekt = {
-        nazivP: document.getElementById("nazivProjekta"),
-        startP: vrijemeStart,
-        stopP: vrijemeStop,
-        trajanjeP: 0
-      }
-      postaviProjekte(projekti.concat(noviObjekt))  
-      
-    }
-    setIsOpen(!isOpen);
-    
+  function toggleModalOn() {  
+    postaviModal(true);
   }
+
+
+  function toggleModalOff(unos) {  
+    const noviObjekt = {
+      nazivP: unos,
+      startP: vrijemeStart,
+      stopP: vrijemeStop,
+      trajanjeP: interval,
+    }
+
+      postaviProjekte(projekti.concat(noviObjekt))
+      
+      postaviModal(false);
+  }
+
+  const spremiPod = (vrijeme) =>{
+    postaviInterval(vrijeme)
+
+    postaviModStoperica(0)
+    toggleModalOn()
+    }
 
   const promjenaVidljivostiStart = () => { 
     postaviTipkuStartStop(false)
-    postaviFormuTimer(true)
+    postaviModStoperica(2)
+    let datum = new Date();
+    postaviVrijemeStop(`${datum.getDate()}.${datum.getMonth()}.${datum.getFullYear()}. ${datum.getHours()} h ${datum.getMinutes()} min ${datum.getSeconds()} s`)
   }
 
   const promjenaVidljivostiStop = () => { 
     postaviTipkuStartStop(true)
-    postaviFormuTimer(false)
-    toggleModal()
+    postaviModStoperica(1)
+    let datum = new Date();
+    postaviVrijemeStart(`${datum.getDate()}.${datum.getMonth()}.${datum.getFullYear()}. ${datum.getHours()} h ${datum.getMinutes()} min ${datum.getSeconds()} s`)
   }
-
-  const spremiPodatke = () =>{
-
-  }
-  // useEffect( () => {
-    
-  // },[projekti])
 
   return (
+    <div>
+      <div className='conNaslov'><h1>Timely</h1></div>
     <div className='container'>
-
-      <div className='conNaslov'> 
-        <h1>Timely</h1>
+      <div className='conTablica'>
+        {tipkaStartStop ? <Tipka naziv={"Stop"} klik={() => promjenaVidljivostiStart()}/> : <Tipka naziv={"Start"} klik={() => promjenaVidljivostiStop()}/> }
+        {tipkaStartStop ? <Stoperica mod={modStoperica} vratiPodatke={spremiPod}/> : <Stoperica mod={modStoperica} vratiPodatke={spremiPod}/>}
       </div>
 
-      <div className='conTablice'>
-      { tipkaStartStop ? 
-        <div>
-          <Tipka naziv="Start" klik={() => promjenaVidljivostiStart()} />
-          <TablicaProjekata podatci={projekti} />
-        </div> : 
-        <div>
-            <Tipka naziv="Stop" klik={() => promjenaVidljivostiStop()}/>
-            <Stopwatch sejv={spremiPodatke}/>
-            <TablicaProjekata />
-        </div>}
-      </div>
+      {modal ? <ModalniProzor turnModalOff={toggleModalOff} mod={modal} /> : null}
 
-      <div className='modalniProzor'>
-        <Modal
-          isOpen={isOpen}
-          onRequestClose={toggleModal}
-          contentLabel="My dialog"
-          className="mymodal"
-          overlayClassName="myoverlay">
-
-          <div className='containerModal'>
-            <div className='naslovModal'>Project name *</div>
-            <div className='inputModal'>
-              <input type="text" className='inputNaziv' id="nazivProjekta"></input>
-            </div>
-            <div className='btnModal'>
-              <button onClick={toggleModal}>Save</button>
-            </div>
-          </div>
-
-        </Modal>
-      </div>
-
+      {projekti.length > 0 ? <TablicaProjekata podatci={projekti}/> : null}
+      
+    </div>
     </div>
   );
 }

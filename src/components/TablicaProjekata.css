@@ -1,15 +1,28 @@
 .containerTP{
-    padding: 20px;
-}
-.red{
-    border:2px black solid;
+    padding: 10px;
+    border-radius: 5px;
 }
 .contTablice{
     padding: 20px;
-    background-color: rgb(34, 98, 158);
     color: white;
 }
-th{
-    padding: 10px 40px;
+tbody{
+    
     border:solid 1px;
+    color: white;
+    border: 3px solid;
+    border-color: white;
+    
+}
+table, th, td {
+    border: 1px solid;
+    padding: 20px;
+    background-color: rgb(34, 98, 158);
+    border-radius: 5px;
+}
+th{
+    padding: 30px;
+    border: 2px solid white;
+    color: black;
+    background-color: lightblue;
 }
