@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const password = process.env.ATLAS_PASS
+// const password = process.env.ATLAS_PASS
+const password = "korisnik1234"
 const dbname = 'timelyProjekt'
 const url = `mongodb+srv://korisnik01:${password}@bazapodatakav07.eexyy.mongodb.net/${dbname}?retryWrites=true&w=majority`
 
