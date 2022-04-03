@@ -2,7 +2,7 @@ import React from 'react'
 import Podatak from './Podatak'
 import './TablicaProjekata.css'
 
-const TablicaProjekata = ({podatci}) => {
+const TablicaProjekata = ({podatci,promjenaVidljivostiUredi,izbrisi}) => {
     return (
         <div className='containerTP'>
             <table className='contTablice'>
@@ -16,7 +16,7 @@ const TablicaProjekata = ({podatci}) => {
                     </tr>              
                 </thead>
                 <tbody >
-                    {podatci.map(el => <Podatak podatak={el}/>)}
+                    {podatci.map(el => <Podatak key={el.id} podatak={el} promjenaVidljivostiUredi = {()=>promjenaVidljivostiUredi(el.id)} izbrisi={()=>izbrisi(el.id)}  />)}
                 </tbody>
             </table>
         </div>
